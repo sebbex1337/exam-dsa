@@ -1,0 +1,24 @@
+:root {
+  --row-num: 10;
+  --col-num: 10;
+}
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(var(--col-num), 50px);
+  grid-template-rows: repeat(var(--row-num), 50px);
+}
+
+.cell {
+  box-sizing: border-box;
+  border: 1px solid black;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a6c9ec;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
