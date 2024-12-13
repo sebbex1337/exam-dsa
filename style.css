@@ -19,6 +19,18 @@
   background-color: #a6c9ec;
 }
 
+.cell.start {
+  background-color: #00ff00;
+}
+
+.cell.end {
+  background-color: #ff0000;
+}
+
+.cell.wall {
+  background-color: #404040;
+}
+
 .controls {
   margin-bottom: 20px;
 }
