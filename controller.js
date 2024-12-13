@@ -19,12 +19,11 @@ function setupControls() {
   const wallBtn = document.querySelector("#wallPos");
   const resetBtn = document.querySelector("#reset");
 
-  // Sætter selecting start til at være true og selecting end til at være false
+  // Vi sætter selectMode ud fra hvad man klikker på
   startBtn.addEventListener("click", () => {
     selectMode = "start";
   });
-
-  // Og omvendt :)
+  
   endBtn.addEventListener("click", () => {
     selectMode = "end";
   });
@@ -40,7 +39,7 @@ function setupControls() {
   // Får fat i vores grid
   const gridContainer = document.querySelector("#grid");
 
-  // Gør den lytter på et klik så man kan vælge start og slut position
+  // Gør den lytter på et klik så man kan vælge start, end eller wall positioner
   gridContainer.addEventListener("click", (event) => {
     if (!selectMode) return; // Gør ingenting hvis selectmode er null, dvs vi har ikke valgt nogen mode til at klikke på griddet
 
@@ -53,18 +52,18 @@ function setupControls() {
     console.log(row, col);
 
     switch (selectMode) {
-      case "start":
+      case "start": // Hvis vi har valgt start, så sætter vi start positionen
         view.setStart(cell);
         selectMode = null;
         break;
-      case "end":
+      case "end": // Hvis vi har valgt end, så sætter vi end positionen
         view.setEnd(cell);
         selectMode = null;
         break;
-      case "wall":
+      case "wall": // Hvis vi har valgt wall, så sætter vi wall positionen
         view.toggleWall(cell);
         break;
-      default:
+      default: // Gør ingenting hvis vi ikke har valgt nogen mode
         break;
     }
   });
