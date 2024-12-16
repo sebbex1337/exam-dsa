@@ -49,7 +49,7 @@ export async function A_star(start, end, grid, onStep) {
   gScore.set(`${start.row},${start.col}`, 0); // Vi sætter gScore til 0 for start
   fScore.set(`${start.row},${start.col}`, heuristic(start, end)); // Vi sætter fScore til heuristikken for start
 
-  while (openList.size() > 0) {
+  while (openList.size() > 0) { // TODO: Vi skal tjekke for vægge også
     const current = openList.dequeue(); // Tag den node med laveste fScore
     const currentKey = `${current.row},${current.col}`; // Lav en key til current
 
