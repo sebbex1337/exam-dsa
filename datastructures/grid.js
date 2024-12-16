@@ -9,10 +9,7 @@ export class Grid {
         row,
         col,
         visited: false,
-        north: true,
-        south: true,
-        east: true,
-        west: true,
+        wall: false, // Vi sætter wall til false som standard
         parent: null,
       }))
     );
