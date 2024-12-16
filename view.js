@@ -57,3 +57,24 @@ export function resetGrid() {
     cell.className = "cell";
   });
 }
+
+export function markVisited(row, col) {
+  const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+  if (cell && !cell.classList.contains("start") && !cell.classList.contains("end")) {
+    cell.classList.add("visited");
+  }
+}
+
+export function markPath(row, col) {
+  const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+  if (cell && !cell.classList.contains("start") && !cell.classList.contains("end")) {
+    cell.classList.add("path");
+  }
+}
+
+export function markCurrent(row, col) {
+  const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+  if (cell && !cell.classList.contains("start") && !cell.classList.contains("end")) {
+    cell.classList.add("current");
+  }
+}
