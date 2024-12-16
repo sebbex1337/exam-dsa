@@ -31,6 +31,18 @@
   background-color: #404040;
 }
 
+.cell.current {
+  background-color: #9e4f00;
+}
+
+.cell.visited {
+  background-color: #ffff00;
+}
+
+.cell.path {
+  background-color: #214821;
+}
+
 .controls {
   margin-bottom: 20px;
 }
