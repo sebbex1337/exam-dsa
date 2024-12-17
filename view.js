@@ -1,3 +1,7 @@
+/**
+ *
+ * @param {Grid} grid data structure - check ./datastructures/grid.js for more information
+ */
 export function initGrid(grid) {
   document.documentElement.style.setProperty("--row-num", grid.rowsNum);
   document.documentElement.style.setProperty("--col-num", grid.colsNum);
@@ -13,6 +17,11 @@ export function initGrid(grid) {
   }
 }
 
+/**
+ *
+ * @param {Object} start {row, col}
+ * @param {Object} end {row, col}
+ */
 export function displayStartAndEnd(start, end) {
   const startCell = document.querySelector(`.cell[data-row="${start.row}"][data-col="${start.col}"]`);
   const endCell = document.querySelector(`.cell[data-row="${end.row}"][data-col="${end.col}"]`);
@@ -20,6 +29,10 @@ export function displayStartAndEnd(start, end) {
   endCell.classList.add("end");
 }
 
+/**
+ *
+ * @param {Object} cell {row, col}
+ */
 export function setStart(cell) {
   // Vi henter alle celler der kan have .start, der burde dog kun kunne være en (Vi håber?)
   const start = document.querySelectorAll(".start");
@@ -30,6 +43,10 @@ export function setStart(cell) {
   cell.classList.add("start");
 }
 
+/**
+ *
+ * @param {Object} cell {row, col}
+ */
 export function setEnd(cell) {
   // Vi henter alle celler der kan have .end, der burde dog kun kunne være en (Vi håber?)
   const end = document.querySelectorAll(".end");
@@ -40,6 +57,10 @@ export function setEnd(cell) {
   cell.classList.add("end");
 }
 
+/**
+ *
+ * @param {Object} cell {row, col}
+ */
 export function toggleWall(cell) {
   cell.classList.toggle("wall");
 }
@@ -58,6 +79,11 @@ export function resetGrid() {
   });
 }
 
+/**
+ *
+ * @param {Number} row - row number
+ * @param {Number} col - column number
+ */
 export function markVisited(row, col) {
   const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
   if (cell && !cell.classList.contains("start") && !cell.classList.contains("end")) {
@@ -65,6 +91,11 @@ export function markVisited(row, col) {
   }
 }
 
+/**
+ *
+ * @param {Number} row - row number
+ * @param {Number} col - column number
+ */
 export function markPath(row, col) {
   const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
   if (cell && !cell.classList.contains("start") && !cell.classList.contains("end")) {
@@ -72,6 +103,11 @@ export function markPath(row, col) {
   }
 }
 
+/**
+ *
+ * @param {Number} row - row number
+ * @param {Number} col - column number
+ */
 export function markCurrent(row, col) {
   const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
   if (cell && !cell.classList.contains("start") && !cell.classList.contains("end")) {
