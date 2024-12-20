@@ -10,7 +10,7 @@ let selectMode = null; // Mulige værdier: "start", "end", "wall"
 let selectedHeuristic = model.manhattenHeuristic; // Brug manhatten som default heuristic
 
 function init() {
-  grid = new Grid({ row: 10, col: 15 });
+  grid = new Grid({ row: 10, col: 15 }); // Ændre størrelsen på gridet her
   view.initGrid(grid);
   setupControls();
 }
