@@ -1,37 +1,35 @@
 
 ```
 function A-star(start, slut, grid)
-  Initialiser en tom åbenkø 
-  Initialiser en tom lukketkø
-  Initialiser en tom kommetfra Map
+  openList = Initialiser en tom åbenkø 
+  closedList = Initialiser et tomt Set
+  cameFrom = Initialiser et tomt Map til genskabning af bedste vej
 
   g(x) repræsenterer afstand fra start til nuværende celle
   f(x) repræsenterer den totale afstand fra start til slut beregnet med g(x) + heuristic(x)
 
-  tilføje start til åbenkø
+  tilføje start celle til åbenkø med 0 f score
   sæt g(start) til at være 0
   f(start) sættes ved hjælp af (g(start) + heuristic(slut))
 
-  mulige veje at gå: op, højre, ned, venstre
-
   så længe åbenkø ikke er tom
-    vi henter den celle fra åbenkø der har lavest f(x)
+    vi henter den celle fra åbenkø der har lavest f score (det vil sige den første i køen)
+    fjern cellen fra åbenkø (så vi ikke tjekker den igen)
 
-    tjek om nuværende celle er lig slut
-      hvis den er det laver vi stien fra start til slut
-    
-    fjern nurværende celle fra åbenkø
-    tilføj nuværende celle til lukketkø
+    tjek om nuværende celle er lig slut cellen
+      hvis den er det laver vi stien fra start cellen til slut cellen
+    hvis nuværende celle ikke er lig slut cellen
+      fortsæt while loop
 
-    for hver mulig vej
-      nabo = nuværende celle + mulig vej // f.eks. op
+    tilføj nurværende celle til lukketkø
 
-      tjek om nabo er i gridet
-        fortsæt
+    for hver mulig vej // op, højre, ned, venstre
+      nabo = nuværende celle vi tjekker
+
       tjek om nabo er væg
-        fortsæt
-      tjek om nabo er i lukketkø
-        fortsæt
+        tjek næste nabo
+      tjek om nabo er i lukketkø // har vi været der?
+        tjek næste nabo
       
       løbende beregning af g(x) fra start til nuværende celle til nabo hvor nabo altid vil være + 1
 
@@ -43,6 +41,9 @@ function A-star(start, slut, grid)
       tilføj nuværende til kommetfra
       g(nabo) sættes til at være løbende beregning af g(x)
       beregn f(x) med nabo celle
+
+      Hvis nabo ikke er i openList
+        tilføj nabo til openList
 
   return null // Ingen sti er fundet
 
