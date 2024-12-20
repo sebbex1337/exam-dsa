@@ -3,6 +3,7 @@ import { PriorityQueue } from "./datastructures/priorityqueue.js";
 
 let openList = new PriorityQueue();
 let closedList = new Set();
+let wallList = new Set();
 let cameFrom = new Map();
 
 /**
@@ -46,8 +47,6 @@ export function zeroHeuristic(a, b) {
   return 0;
 }
 
-
-
 /**
  *
  * @param {String} currentKey a set of {row,col}
@@ -77,6 +76,7 @@ export async function A_star(start, end, grid, onStep, heuristic) {
   // Nulstil globale variabler
   openList = new PriorityQueue();
   closedList = new Set();
+  wallList = new Set();
   cameFrom = new Map();
 
   const gScore = new Map();
@@ -91,7 +91,7 @@ export async function A_star(start, end, grid, onStep, heuristic) {
   while (openList.size() > 0) {
     // TODO: Vi skal tjekke for vægge også
     const current = openList.dequeue(); // Tag den node med laveste fScore
-    const currentKey = `${current.row},${current.col}`; // Lav en key til current
+    const currentKey = `${current.data.row},${current.data.col}`; // Lav en key til current
 
     // Kald onStep hvis vi har en funktion
     if (onStep) {
@@ -100,14 +100,14 @@ export async function A_star(start, end, grid, onStep, heuristic) {
     }
 
     // Hvis vi er nået til end, så er vi færdige
-    if (current.row === end.row && current.col === end.col) {
+    if (current.data.row === end.row && current.data.col === end.col) {
       const path = reconstructPath(currentKey);
       return path;
     }
 
     closedList.add(currentKey); // Tilføj current til closedList
 
-    const neighbours = grid.neighbours(current.row, current.col); // Find naboer til current
+    const neighbours = grid.neighbours(current.data.row, current.data.col); // Find naboer til current
     // console.log(neighbours.map((n) => `${n.row},${n.col}`));
     for (const neighbour of neighbours) {
       const neighbourKey = `${neighbour.row},${neighbour.col}`; // Lav en key til neighbour
@@ -116,6 +116,7 @@ export async function A_star(start, end, grid, onStep, heuristic) {
       const neighbourCell = grid.get(neighbour.row, neighbour.col);
       if (neighbourCell.wall) {
         console.log(`skipping wall at (${neighbour.row}, ${neighbour.col})`);
+        wallList.add(neighbourKey);
         continue;
       }
 
@@ -155,5 +156,12 @@ export function getClosedList() {
 export function getCameFrom() {
   return Array.from(cameFrom.entries()).map(([key, value]) => {
     return { key, value };
+  });
+}
+
+export function getWallList() {
+  return Array.from(wallList).map((key) => {
+    const [row, col] = key.split(",").map(Number);
+    return { row, col };
   });
 }

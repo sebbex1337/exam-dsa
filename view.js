@@ -19,18 +19,6 @@ export function initGrid(grid) {
 
 /**
  *
- * @param {Object} start {row, col}
- * @param {Object} end {row, col}
- */
-export function displayStartAndEnd(start, end) {
-  const startCell = document.querySelector(`.cell[data-row="${start.row}"][data-col="${start.col}"]`);
-  const endCell = document.querySelector(`.cell[data-row="${end.row}"][data-col="${end.col}"]`);
-  startCell.classList.add("start");
-  endCell.classList.add("end");
-}
-
-/**
- *
  * @param {Object} cell {row, col}
  */
 export function setStart(cell) {
@@ -112,5 +100,42 @@ export function markCurrent(row, col) {
   const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
   if (cell && !cell.classList.contains("start") && !cell.classList.contains("end")) {
     cell.classList.add("current");
+  }
+}
+
+export function updateOpenlist(list) {
+  const openList = document.querySelector("#openList ul");
+  openList.innerHTML = "";
+  console.log(list);
+
+  // Tjek hver cell i openList og tilføj en <li> til <ul>
+  for (const cell of list) {
+    const li = document.createElement("li");
+    li.textContent = `Checking: (${cell.data.row}, ${cell.data.col}) Prioritet: ${cell.priority}`;
+    openList.appendChild(li);
+  }
+}
+
+export function updateClosedList(list) {
+  const closedList = document.querySelector("#closedList ul");
+  closedList.innerHTML = "";
+
+  // Tjek hver cell i closedList og tilføj en <li> til <ul>
+  for (const cell of list) {
+    const li = document.createElement("li");
+    li.textContent = `Checked: (${cell.row}, ${cell.col})`;
+    closedList.appendChild(li);
+  }
+}
+
+export function updateWallList(list) {
+  const wallList = document.querySelector("#wallList ul");
+  wallList.innerHTML = "";
+
+  // Tjek hver cell i wallList og tilføj en <li> til <ul>
+  for (const cell of list) {
+    const li = document.createElement("li");
+    li.textContent = `Wall: (${cell.row}, ${cell.col})`;
+    wallList.appendChild(li);
   }
 }

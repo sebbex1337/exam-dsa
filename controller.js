@@ -64,6 +64,11 @@ function setupControls() {
   runBtn.addEventListener("click", async () => {
     const startCell = document.querySelector(".start");
     const endCell = document.querySelector(".end");
+    if (startCell === null || endCell === null) {
+      alert("You need to set start and end positions!");
+      return;
+    }
+
     const start = {
       row: parseInt(startCell.dataset.row),
       col: parseInt(startCell.dataset.col),
@@ -77,7 +82,12 @@ function setupControls() {
     if (start && end) {
       const onStep = (current) => {
         // Vi kalder denne funktion på hvert step
-        view.markVisited(current.row, current.col);
+        view.markVisited(current.data.row, current.data.col);
+        const openList = model.getOpenList();
+        openList.unshift(current);
+        view.updateOpenlist(openList);
+        view.updateClosedList(model.getClosedList());
+        view.updateWallList(model.getWallList());
       };
 
       const path = await model.A_star(start, end, grid, onStep, selectedHeuristic);

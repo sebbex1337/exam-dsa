@@ -9,6 +9,14 @@
   grid-template-rows: repeat(var(--row-num), 50px);
 }
 
+#lists {
+  display: flex;
+}
+
+#lists div {
+  margin-right: 100px;
+}
+
 .cell {
   box-sizing: border-box;
   border: 1px solid black;
@@ -44,5 +52,7 @@
 }
 
 .controls {
+  display: grid;
+  gap: 10px;
   margin-bottom: 20px;
 }

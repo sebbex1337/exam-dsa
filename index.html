@@ -10,18 +10,36 @@
     <div class="container">
       <h1>A* Algorithm DSA Exam</h1>
       <div class="controls">
-        <button class="btn" id="start">Start</button>
-        <button class="btn" id="reset">Reset</button>
-        <button class="btn" id="startPos">Choose a start position</button>
-        <button class="btn" id="endPos">Choose an end position</button>
-        <button class="btn" id="wallPos">Choose walls</button>
-        <select name="heuristic" id="heuristics">
-          <option value="manhatten" selected>Manhatten distance</option>
-          <option value="euclidean">Euclidean</option>
-          <option value="zero">Zero - Dijkstra</option>
-        </select>
+        <div class="start-reset-btns">
+          <button class="btn" id="start">Start</button>
+          <button class="btn" id="reset">Reset</button>
+        </div>
+        <div class="grid-options">
+          <button class="btn" id="startPos">Choose a start position</button>
+          <button class="btn" id="endPos">Choose an end position</button>
+          <button class="btn" id="wallPos">Choose walls</button>
+          <select name="heuristic" id="heuristics">
+            <option value="manhatten" selected>Manhatten distance</option>
+            <option value="euclidean">Euclidean</option>
+            <option value="zero">Zero - Dijkstra</option>
+          </select>
+        </div>
       </div>
       <div id="grid"></div>
+      <div id="lists">
+        <div id="openList">
+          <h2>Open List</h2>
+          <ul></ul>
+        </div>
+        <div id="closedList">
+          <h2>Closed List</h2>
+          <ul></ul>
+        </div>
+        <div id="wallList">
+          <h2>Wall list</h2>
+          <ul></ul>
+        </div>
+      </div>
     </div>
   </body>
   <script src="controller.js" type="module"></script>

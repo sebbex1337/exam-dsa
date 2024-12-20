@@ -9,17 +9,21 @@ export class PriorityQueue {
     if (this.head === null || this.head.priority > priority) {
       newNode.next = this.head;
       this.head = newNode;
-      if (this.tail === null) { // Hvis køen er tom, så er halen også hovedet
+      if (this.tail === null) {
+        // Hvis køen er tom, så er halen også hovedet
         this.tail = newNode;
       }
-    } else { // Hvis ikke, så indsæt noden i den rigtige rækkefølge. Hvis den nye node har højere prioritet end hovedet, så indsæt noden forrest i køen
+    } else {
+      // Hvis ikke, så indsæt noden i den rigtige rækkefølge. Hvis den nye node har højere prioritet end hovedet, så indsæt noden forrest i køen
       let current = this.head;
-      while (current.next != null && current.next.priority <= priority) { // Find den rigtige placering i køen
+      while (current.next != null && current.next.priority <= priority) {
+        // Find den rigtige placering i køen
         current = current.next;
       }
       newNode.next = current.next;
       current.next = newNode;
-      if (newNode.next === null) { // Hvis den nye node er den sidste i køen, så opdater halen
+      if (newNode.next === null) {
+        // Hvis den nye node er den sidste i køen, så opdater halen
         this.tail = newNode;
       }
     }
@@ -31,12 +35,13 @@ export class PriorityQueue {
       return null;
     }
     const currentHead = this.head.data;
+    const currentHeadPriority = this.head.priority;
     this.head = this.head.next;
     if (this.head === null) {
       this.tail = null;
     }
     this.count--;
-    return currentHead;
+    return { data: currentHead, priority: currentHeadPriority };
   }
 
   peek() {
@@ -48,13 +53,15 @@ export class PriorityQueue {
   }
 
   get(index) {
-    if (index < 0 || index >= this.count) {
+    if (index < 0 || index >= this.count) {
       return null;
     }
     let lookAt = this.head; // Start fra hovedet
     let i = 0;
-    while (lookAt != null) { // Gå igennem køen indtil vi finder den rigtige node
-      if (i === index) { // Hvis vi har fundet den rigtige node, så return dataen
+    while (lookAt != null) {
+      // Gå igennem køen indtil vi finder den rigtige node
+      if (i === index) {
+        // Hvis vi har fundet den rigtige node, så return dataen
         return lookAt.data;
       }
       lookAt = lookAt.next;
@@ -63,7 +70,8 @@ export class PriorityQueue {
     return null;
   }
 
-  contains(data) { // Tjek om data er i køen, altså om data.row og data.col er i køen
+  contains(data) {
+    // Tjek om data er i køen, altså om data.row og data.col er i køen
     let current = this.head;
     while (current != null) {
       if (current.data.row === data.row && current.data.col === data.col) {
@@ -74,11 +82,12 @@ export class PriorityQueue {
     return false;
   }
 
-  toArray() { // Returner en array med alle elementer i køen
+  toArray() {
+    // Returner en array med alle elementer i køen
     const array = [];
     let current = this.head;
     while (current != null) {
-      array.push(current.data);
+      array.push(current);
       current = current.next;
     }
     return array;
