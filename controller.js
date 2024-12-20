@@ -96,6 +96,7 @@ function setupControls() {
         break;
       case "wall": // Hvis vi har valgt wall, så sætter vi wall positionen
         view.toggleWall(cell);
+        grid.toggleWall(row, col);
         break;
       default: // Gør ingenting hvis vi ikke har valgt nogen mode
         break;

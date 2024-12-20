@@ -8,7 +8,6 @@ export class Grid {
       Array.from({ length: columns }, (_, col) => ({
         row,
         col,
-        visited: false,
         wall: false, // Vi sætter wall til false som standard
         parent: null,
       }))
@@ -42,6 +41,12 @@ export class Grid {
     const row = Math.floor(index / this.colsNum);
     const col = index % this.colsNum;
     return { row, col };
+  }
+
+  // Ny funktion at tilføje vægge til gridet
+  toggleWall(row, col) {
+    const cell = this.get(row, col);
+    cell.wall = !cell.wall;
   }
 
   neighbours(rowOrObj, col) {

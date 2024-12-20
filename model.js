@@ -5,10 +5,21 @@ let openList = new PriorityQueue();
 let closedList = new Set();
 let cameFrom = new Map();
 
+/**
+ *
+ * @param {Number} ms number of seconds to delay
+ * @returns A promise // kig lidt mere på hvad den præcis returnerer
+ */
 async function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+/**
+ *
+ * @param {Object} a {row, col}
+ * @param {Object} b {row, col}
+ * @returns Den absolute værdi af (a.row - b.row) + (a.col - b.col)
+ */
 function heuristic(a, b) {
   // Manhatten distance |row1 - row2| + |col1 - col2|
   return Math.abs(a.row - b.row) + Math.abs(a.col - b.col);
@@ -23,7 +34,6 @@ function reconstructPath(currentKey) {
   const totalPath = [];
   let current = currentKey;
   while (current !== null) {
-    console.log(current);
     const [row, col] = current.split(",").map(Number); // Vi splitter current og laver det om til et array af tal
     totalPath.push({ row, col }); // Vi tilføjer row og col til totalPath
     current = cameFrom.get(current); // Vi sætter current til dens forælder
@@ -77,6 +87,13 @@ export async function A_star(start, end, grid, onStep) {
     // console.log(neighbours.map((n) => `${n.row},${n.col}`));
     for (const neighbour of neighbours) {
       const neighbourKey = `${neighbour.row},${neighbour.col}`; // Lav en key til neighbour
+      
+      // Tjek om nabo er en væg eller ej
+      const neighbourCell = grid.get(neighbour.row, neighbour.col);
+      if (neighbourCell.wall) {
+        console.log(`skipping wall at (${neighbour.row}, ${neighbour.col})`);
+        continue;
+      }
 
       if (closedList.has(neighbourKey)) {
         continue; // Hvis vi allerede har besøgt naboen, så fortsæt
