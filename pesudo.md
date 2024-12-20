@@ -38,7 +38,7 @@ function A-star(start, slut, grid)
       ellers tjek om løbende beregning af g(x) er større eller mindre end g(nabo)
         fortsæt
 
-      tilføj nuværende til kommetfra
+      tilføj nuværende til cameFrom
       g(nabo) sættes til at være løbende beregning af g(x)
       beregn f(x) med nabo celle
 
