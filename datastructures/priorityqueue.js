@@ -3,7 +3,7 @@ export class PriorityQueue {
   tail = null;
   count = 0;
 
-  enqueue(data, priority) {
+  enqueue(data, priority) { // O(n)
     const newNode = new Node(data, priority, null);
     // Tjek om køen er tom, eller om den nye node har højere prioritet end hovedet
     if (this.head === null || this.head.priority > priority) {

@@ -88,15 +88,14 @@ export async function A_star(start, end, grid, onStep, heuristic) {
   gScore.set(`${start.row},${start.col}`, 0); // Vi sætter gScore til 0 for start
   fScore.set(`${start.row},${start.col}`, heuristic(start, end)); // Vi sætter fScore til heuristikken for start
 
-  while (openList.size() > 0) {
-    // TODO: Vi skal tjekke for vægge også
+  while (openList.size() > 0) { // O(n)
     const current = openList.dequeue(); // Tag den node med laveste fScore
     const currentKey = `${current.data.row},${current.data.col}`; // Lav en key til current
 
     // Kald onStep hvis vi har en funktion
     if (onStep) {
       onStep(current);
-      await delay(200); // Vent 500ms
+      await delay(200); // Vent 200ms
     }
 
     // Hvis vi er nået til end, så er vi færdige
@@ -108,7 +107,6 @@ export async function A_star(start, end, grid, onStep, heuristic) {
     closedList.add(currentKey); // Tilføj current til closedList
 
     const neighbours = grid.neighbours(current.data.row, current.data.col); // Find naboer til current
-    // console.log(neighbours.map((n) => `${n.row},${n.col}`));
     for (const neighbour of neighbours) {
       const neighbourKey = `${neighbour.row},${neighbour.col}`; // Lav en key til neighbour
 
@@ -133,7 +131,7 @@ export async function A_star(start, end, grid, onStep, heuristic) {
         fScore.set(neighbourKey, tentative_gScore + heuristic(neighbour, end));
 
         if (!openList.contains(neighbour)) {
-          openList.enqueue(neighbour, fScore.get(neighbourKey));
+          openList.enqueue(neighbour, fScore.get(neighbourKey)); // O(n)
         }
       }
     }

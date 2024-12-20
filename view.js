@@ -111,7 +111,7 @@ export function updateOpenlist(list) {
   // Tjek hver cell i openList og tilføj en <li> til <ul>
   for (const cell of list) {
     const li = document.createElement("li");
-    li.textContent = `Checking: (${cell.data.row}, ${cell.data.col}) Prioritet: ${cell.priority}`;
+    li.textContent = `Checking: (${cell.data.row}, ${cell.data.col}) F Score: ${cell.priority}`;
     openList.appendChild(li);
   }
 }
