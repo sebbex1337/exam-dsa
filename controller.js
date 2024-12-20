@@ -7,6 +7,7 @@ window.addEventListener("load", init);
 
 let grid;
 let selectMode = null; // Mulige værdier: "start", "end", "wall"
+let selectedHeuristic = model.manhattenHeuristic; // Brug manhatten som default heuristic
 
 function init() {
   grid = new Grid({ row: 10, col: 15 });
@@ -20,6 +21,7 @@ function setupControls() {
   const wallBtn = document.querySelector("#wallPos");
   const resetBtn = document.querySelector("#reset");
   const runBtn = document.querySelector("#start");
+  const heuristicSelect = document.querySelector("#heuristics");
 
   // Vi sætter selectMode ud fra hvad man klikker på
   startBtn.addEventListener("click", () => {
@@ -36,6 +38,27 @@ function setupControls() {
 
   resetBtn.addEventListener("click", () => {
     view.resetGrid();
+  });
+
+  heuristicSelect.addEventListener("change", (event) => {
+    const selectedValue = event.target.value;
+    console.log(`Selected Heuristic: ${selectedValue}`);
+
+    switch (selectedValue) {
+      case "manhatten":
+        selectedHeuristic = model.manhattenHeuristic;
+        break;
+      case "euclidean":
+        selectedHeuristic = model.euclideanHeuristic;
+        break;
+      case "zero":
+        selectedHeuristic = model.zeroHeuristic;
+        break;
+      default:
+        // Brug manhatten som default hvis der går noget galt
+        selectedHeuristic = model.manhattenHeuristic;
+        break;
+    }
   });
 
   runBtn.addEventListener("click", async () => {
@@ -57,7 +80,7 @@ function setupControls() {
         view.markVisited(current.row, current.col);
       };
 
-      const path = await model.A_star(start, end, grid, onStep);
+      const path = await model.A_star(start, end, grid, onStep, selectedHeuristic);
 
       // Hvis vi har en path, så markerer vi den
       if (path) {

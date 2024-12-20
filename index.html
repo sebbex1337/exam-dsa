@@ -15,6 +15,11 @@
         <button class="btn" id="startPos">Choose a start position</button>
         <button class="btn" id="endPos">Choose an end position</button>
         <button class="btn" id="wallPos">Choose walls</button>
+        <select name="heuristic" id="heuristics">
+          <option value="manhatten" selected>Manhatten distance</option>
+          <option value="euclidean">Euclidean</option>
+          <option value="zero">Zero - Dijkstra</option>
+        </select>
       </div>
       <div id="grid"></div>
     </div>

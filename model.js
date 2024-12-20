@@ -20,10 +20,33 @@ async function delay(ms) {
  * @param {Object} b {row, col}
  * @returns Den absolute værdi af (a.row - b.row) + (a.col - b.col)
  */
-function heuristic(a, b) {
+export function manhattenHeuristic(a, b) {
   // Manhatten distance |row1 - row2| + |col1 - col2|
   return Math.abs(a.row - b.row) + Math.abs(a.col - b.col);
 }
+
+/**
+ *
+ * @param {Object} a {row, col}
+ * @param {Object} b {row, col}
+ * @returns Returnerer den euklidiske distance mellem a og b. Også kaldet pythagoras sætning
+ */
+export function euclideanHeuristic(a, b) {
+  // Euclidean distance sqrt((row1 - row2)^2 + (col1 - col2)^2)
+  return Math.sqrt(Math.pow(a.row - b.row, 2) + Math.pow(a.col - b.col, 2));
+}
+
+/**
+ *
+ * @param {Object} a {row, col}
+ * @param {Object} b {row, col}
+ * @returns 0 - Vi returnerer 0 og gør at A* algoritmen bliver til Dijkstra's algoritme
+ */
+export function zeroHeuristic(a, b) {
+  return 0;
+}
+
+
 
 /**
  *
@@ -47,9 +70,10 @@ function reconstructPath(currentKey) {
  * @param {Object} end {row: number, col: number}
  * @param {Grid} grid Grid object
  * @param {Function} onStep  Function to call on each step
+ * @param {Function} heuristic  Heuristic function to call on each cell
  * @returns Array of objects with row and col
  */
-export async function A_star(start, end, grid, onStep) {
+export async function A_star(start, end, grid, onStep, heuristic) {
   // Nulstil globale variabler
   openList = new PriorityQueue();
   closedList = new Set();
@@ -87,7 +111,7 @@ export async function A_star(start, end, grid, onStep) {
     // console.log(neighbours.map((n) => `${n.row},${n.col}`));
     for (const neighbour of neighbours) {
       const neighbourKey = `${neighbour.row},${neighbour.col}`; // Lav en key til neighbour
-      
+
       // Tjek om nabo er en væg eller ej
       const neighbourCell = grid.get(neighbour.row, neighbour.col);
       if (neighbourCell.wall) {
