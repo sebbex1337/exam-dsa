@@ -32,17 +32,6 @@ export class Grid {
     return this.grid[row]?.[column];
   }
 
-  indexFor(rowOrObj, col) {
-    const { row, col: column } = this.parseRowCol(rowOrObj, col);
-    return row * this.colsNum + column;
-  }
-
-  rowColFor(index) {
-    const row = Math.floor(index / this.colsNum);
-    const col = index % this.colsNum;
-    return { row, col };
-  }
-
   // Ny funktion at tilføje vægge til gridet
   toggleWall(row, col) {
     const cell = this.get(row, col);
@@ -72,54 +61,6 @@ export class Grid {
     return this.neighbours(row, column).map(({ row, col: neighborCol }) => this.get(row, neighborCol));
   }
 
-  nextInRow(rowOrObj, col) {
-    const { row, col: column } = this.parseRowCol(rowOrObj, col);
-    if (column < this.colsNum - 1) {
-      return { row, col: column + 1 };
-    }
-    return undefined;
-  }
-
-  nextInCol(rowOrObj, col) {
-    const { row, col: column } = this.parseRowCol(rowOrObj, col);
-    if (row < this.rowsNum - 1) {
-      return { row: row + 1, col: column };
-    }
-    return undefined;
-  }
-
-  north(rowOrObj, col) {
-    const { row, col: column } = this.parseRowCol(rowOrObj, col);
-    if (row > 0) {
-      return { row: row - 1, col: column };
-    }
-    return undefined;
-  }
-
-  south(rowOrObj, col) {
-    const { row, col: column } = this.parseRowCol(rowOrObj, col);
-    if (row < this.rowsNum - 1) {
-      return { row: row + 1, col: column };
-    }
-    return undefined;
-  }
-
-  west(rowOrObj, col) {
-    const { row, col: column } = this.parseRowCol(rowOrObj, col);
-    if (column > 0) {
-      return { row, col: column - 1 };
-    }
-    return undefined;
-  }
-
-  east(rowOrObj, col) {
-    const { row, col: column } = this.parseRowCol(rowOrObj, col);
-    if (column < this.colsNum - 1) {
-      return { row, col: column + 1 };
-    }
-    return undefined;
-  }
-
   rows() {
     return this.rowsNum;
   }
@@ -130,13 +71,5 @@ export class Grid {
 
   size() {
     return this.rowsNum * this.colsNum;
-  }
-
-  fill(value) {
-    for (let row = 0; row < this.rowsNum; row++) {
-      for (let col = 0; col < this.colsNum; col++) {
-        this.set(row, col, value);
-      }
-    }
   }
 }
